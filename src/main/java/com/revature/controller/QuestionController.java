@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +32,7 @@ public class QuestionController {
 	 * get all the questions*/
 	@GetMapping
 	@PreAuthorize("hasAuthority('user')")
-	public Page<Question> getAllQuestions(Pageable pageable)
+	public Page<Question> getAllQuestions(@AuthenticationPrincipal String user, Pageable pageable)
 	{
 		return questionService.getAllQuestions(pageable);
 	}
@@ -43,7 +44,7 @@ public class QuestionController {
 	/**@author ken*/
 	@GetMapping("/status/{status}")
 	@PreAuthorize("hasAuthority('admin')")
-	public Page<Question> getAllQuestionsByStatus(Pageable pageable, @PathVariable boolean status)
+	public Page<Question> getAllQuestionsByStatus(@AuthenticationPrincipal String user,Pageable pageable, @PathVariable boolean status)
 	{
 		return questionService.getAllQuestionsByStatus(pageable, status);
 	}
@@ -56,7 +57,7 @@ public class QuestionController {
 	 */
 	@GetMapping("/user/{id}")
 	@PreAuthorize("hasAuthority('user')")
-	public Page<Question> getAllQuestionsByUserId(Pageable pageable, @PathVariable int id)
+	public Page<Question> getAllQuestionsByUserId(@AuthenticationPrincipal String user, Pageable pageable, @PathVariable int id)
 	{
 		return questionService.getAllQuestionsByUserId(pageable, id);
 	}
@@ -93,8 +94,7 @@ public class QuestionController {
 	/** Adds new questions and updates existing ones. */
 	@PostMapping
 	@PreAuthorize("hasAuthority('user')")
-	public Question saveQuestion(@RequestBody Question question) {
-		
+	public Question saveQuestion(@AuthenticationPrincipal String user, @RequestBody Question question) {
 		return questionService.save(question);
 	}
 
@@ -105,7 +105,7 @@ public class QuestionController {
 	 */
 	@PutMapping
 	@PreAuthorize("hasAuthority('user')")
-	public Question updateQuestionAcceptedAnswerId(@RequestBody Question question) {
+	public Question updateQuestionAcceptedAnswerId(@AuthenticationPrincipal String user, @RequestBody Question question) {
 		return questionService.updateQuestionAcceptedAnswerId(question);
 	}
 
@@ -116,7 +116,7 @@ public class QuestionController {
 	 */
 	@PutMapping("/status")
 	@PreAuthorize("hasAuthority('admin')")
-	public Question updateStatus(@RequestBody Question question) {
+	public Question updateStatus(@AuthenticationPrincipal String user, @RequestBody Question question) {
 		return questionService.updateQuestionStatus(question, 20);
 	}
 	
@@ -124,7 +124,7 @@ public class QuestionController {
 	 * @return the is the GetQuestionById end-point. It retrieves a question by it's ID*/
 	@GetMapping("/id/{id}")
 	@PreAuthorize("hasAuthority('user')")
-	public Question getQuestionById(@PathVariable int id) {
+	public Question getQuestionById(@AuthenticationPrincipal String user, @PathVariable int id) {
 		return questionService.findById(id);
 	}
 	

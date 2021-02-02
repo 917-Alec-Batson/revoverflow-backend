@@ -3,6 +3,7 @@ package com.revature.controller;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +29,7 @@ public class AnswerController {
  * 	@return This is the GetAnswers end-point. It retrieves all Answers in the database */
 	@GetMapping
 	@PreAuthorize("hasAuthority('user')")
-	public Page<Answer>getAnswers(Pageable pageable){
+	public Page<Answer>getAnswers(@AuthenticationPrincipal String user, Pageable pageable){
 			return answerService.getAnswers(pageable);
 	}
 
@@ -37,7 +38,7 @@ public class AnswerController {
 	 * @return This is the GetAnswerByQuestionId end-point. It retrieves all answers associated with a specific Question ID */
 	@GetMapping("/{questionId}") 
 	@PreAuthorize("hasAuthority('user')")
-	public Page<Answer> getAnswersByQuestionId(Pageable pageable, @PathVariable int questionId){
+	public Page<Answer> getAnswersByQuestionId(@AuthenticationPrincipal String user, Pageable pageable, @PathVariable int questionId){
 		return answerService.getAnswerByQuestionId(pageable, questionId);
 	}
 	
@@ -46,7 +47,7 @@ public class AnswerController {
 	/** Adds new answers and updates existing ones. */
 	@PostMapping
 	@PreAuthorize("hasAuthority('user')")
-	public Answer saveAnswer( @RequestBody Answer answer) {
+	public Answer saveAnswer( @AuthenticationPrincipal String user, @RequestBody Answer answer) {
 		return answerService.save(answer);
 	}
 	
@@ -55,7 +56,7 @@ public class AnswerController {
 	 * get all the Answers by the user id */
 	@GetMapping("/user/{id}")
 	@PreAuthorize("hasAuthority('user')")
-	public Page<Answer> getAllAnswersByUserID(Pageable pageable,@PathVariable int id){
+	public Page<Answer> getAllAnswersByUserID(@AuthenticationPrincipal String user, Pageable pageable,@PathVariable int id){
 		return answerService.getAllAnswersByUserID(pageable, id);
 	} 
 	
@@ -64,7 +65,7 @@ public class AnswerController {
 	 * @return This is the GetAcceptedAnswerByQuestionId end-point. */
 	@GetMapping("/acceptedAnswers/{acceptedId}")
 	@PreAuthorize("hasAuthority('user')")
-	public Page<Answer> getAcceptedAnswerByQuestionId(Pageable pageable, @PathVariable int acceptedId){
+	public Page<Answer> getAcceptedAnswerByQuestionId(@AuthenticationPrincipal String user, Pageable pageable, @PathVariable int acceptedId){
 		return answerService.getAcceptedAnswerByQuestionId(pageable, acceptedId);
 	}
 	
@@ -72,7 +73,7 @@ public class AnswerController {
 	 * @param id = id
 	 * @return This is the GetAnswerById end-point. It retrieves the answer by it's own unique ID*/
 	@GetMapping("/id/{id}")
-	public Answer getAnswerById(@PathVariable int id){
+	public Answer getAnswerById(@AuthenticationPrincipal String user, @PathVariable int id){
 		return answerService.getAnswerById(id);
 	}
 }

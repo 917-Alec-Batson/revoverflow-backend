@@ -66,7 +66,30 @@ public class UserService {
 			}
 		}
 		return auths;
-		
 	}
+	
+	 public User getByEmail(String email){
+	        User user = userRepository.findByEmail(email);
+
+	        if(user!=null){
+	            return user;
+	        }else{
+	            return new User();
+	        }
+	    }
+	    
+	    public User getUserByEmail(String email){
+	        try {
+	            User user = userRepository.findByEmail(email);
+	            if(user != null) {
+	                return userRepository.save(user);
+	            }
+	        }catch(Exception e) {
+	            Logger logger = Logger.getLogger(UserService.class);
+	            logger.error("error in UserService getUserByEmail", e);
+	            return null;
+	        }
+	        return null;
+	    } 
 
 }
