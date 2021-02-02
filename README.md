@@ -82,4 +82,4 @@ All this comes together in our frontend which is built using React. Our two dist
 
 ## License
 
-The project is under the GNU General Public License
+The project is under the [GNU General Public License](https://github.com/917-Alec-Batson/revoverflow-backend/blob/master/LICENSE)
