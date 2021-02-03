@@ -28,7 +28,7 @@ pipeline{
                 branch "master"
             }
             steps{
-                sh "docker build -v /home/ec2-user/creds.json:/creds.json -t rev-overflow-backend:canada-latest ."
+                sh "docker build -t rev-overflow-backend:canada-latest ."
             }
         }
         stage("Kill Old Container"){
@@ -52,7 +52,7 @@ pipeline{
                 branch "master"
             }
             steps{
-                sh "docker container run -p 10000:8090 -d --name=rev-overflow-backend rev-overflow-backend:canada-latest"
+                sh "docker container run -p 10000:8090 -d --name=rev-overflow-backend -v /home/ec2-user/creds.json:/creds.json rev-overflow-backend:canada-latest"
             }
         }
     }
