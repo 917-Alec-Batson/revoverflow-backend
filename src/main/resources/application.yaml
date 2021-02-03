@@ -30,6 +30,7 @@ cors:
     - http://localhost:3000
     - http://ec2-34-204-205-63.compute-1.amazonaws.com:8090
     - http://ec2-34-204-205-63.compute-1.amazonaws.com:10000
+    - http://ec2-34-204-205-63.compute-1.amazonaws.com:80
   allowed-methods:
     - OPTIONS
     - GET
