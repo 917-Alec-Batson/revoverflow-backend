@@ -1,10 +1,11 @@
-FROM openjdk:8-jdk-alpine
+FROM openjdk:8
 
-ARG JAR_FILE=target/*.jar
+EXPOSE 8090
 
-# Add Maven dependencies (not shaded into the artifact; Docker-cached)
-# Add the service itself
-ARG JAR_FILE
-ADD target/${JAR_FILE} /usr/share/myservice/myservice.jar
+ARG JAR_FILE=RevOverflow-0.0.1-SNAPSHOT.jar
 
-ENTRYPOINT ["/usr/bin/java", "-jar", "/usr/share/myservice/myservice.jar"]
+COPY /target/${JAR_FILE} revoverflow-backend.jar
+
+CMD java -jar p2-backend-spring.jar
+#ENTRYPOINT ["/usr/bin/java", "-jar", "/usr/share/myservice/myservice.jar"]
+
