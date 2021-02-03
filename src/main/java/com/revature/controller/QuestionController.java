@@ -91,8 +91,7 @@ public class QuestionController {
 	}
 	
 	/**@author Hammad
-	 * @return This method retrieves all the questions based on the specific location they are related to
-	 * and whether or not they are company based.*/
+	 * @return This method retrieves all the revature and location based questions.*/
 	@GetMapping("/location/revature")
 	@PreAuthorize("hasAuthority('user')")
 	public Page<Question> getAllRevatureAndLocationBasedQuestions(Pageable pageable)

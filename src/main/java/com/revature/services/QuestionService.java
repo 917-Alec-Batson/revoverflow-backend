@@ -138,8 +138,7 @@ public class QuestionService {
 	}
 	
 	/**@author Hammad
-	 * @return This method retrieves all the questions based on the specific location they are related to
-	 * and whether or not they are company based.*/
+	 * @return This method retrieves all the revature and location based questions*/
 	public Page<Question> getAllRevatureAndLocationBasedQuestions(Pageable pageable){
 		return questionRepository.findByRevatureAndLocation(pageable);
 	}
