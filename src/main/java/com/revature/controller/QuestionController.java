@@ -89,6 +89,16 @@ public class QuestionController {
 	{
 		return questionService.getAllQuestionsByRevatureStatusAndLocationID(pageable, isRevature, id);
 	}
+	
+	/**@author Hammad
+	 * @return This method retrieves all the questions based on the specific location they are related to
+	 * and whether or not they are company based.*/
+	@GetMapping("/location/revature")
+	@PreAuthorize("hasAuthority('user')")
+	public Page<Question> getAllRevatureAndLocationBasedQuestions(Pageable pageable)
+	{
+		return questionService.getAllRevatureAndLocationBasedQuestions(pageable);
+	}
 
 	/** @Author James Walls */
 	/** Adds new questions and updates existing ones. */

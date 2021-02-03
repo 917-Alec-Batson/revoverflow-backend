@@ -26,6 +26,10 @@ public interface QuestionRepository extends JpaRepository<Question, Integer>{
 	Page<Question> findByLocationID(Pageable pageable, int locationID);
 	
 	/**@author Hammad*/
+	@Query("From Question l WHERE l.revatureQuestion = true and l.locationID is not null")
+	Page<Question> findByRevatureAndLocation(Pageable pageable);
+	
+	/**@author Hammad*/
 	Page<Question> findByRevatureQuestionAndLocationID(Pageable pageable, boolean isRevature, int locationID);
 	
 	///**@author Arjun*/
