@@ -28,7 +28,7 @@ pipeline{
                 branch "master"
             }
             steps{
-                sh "docker image build -t rev-overflow-backend:canada-latest ."
+                sh "docker build --build-arg SERVICE_ACCOUNT=/home/ec2-user/creds.json -t rev-overflow-backend:canada-latest ."
             }
         }
         stage("Kill Old Container"){
