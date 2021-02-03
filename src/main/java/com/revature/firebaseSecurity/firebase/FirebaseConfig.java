@@ -22,8 +22,9 @@ public class FirebaseConfig {
 
     public FirebaseConfig() {
         try {
-            Resource serviceAccount = new ClassPathResource("915-alec-batson.json");
-            FirebaseOptions options = FirebaseOptions.builder().setCredentials(GoogleCredentials.fromStream(serviceAccount.getInputStream())).build();
+//            Resource serviceAccount = new ClassPathResource("915-alec-batson.json");
+//            FirebaseOptions options = FirebaseOptions.builder().setCredentials(GoogleCredentials.fromStream(serviceAccount.getInputStream())).build();
+        	FirebaseOptions options = FirebaseOptions.builder().setCredentials(GoogleCredentials.getApplicationDefault()).build();
             this.firebaseAuth = FirebaseAuth.getInstance(FirebaseApp.initializeApp(options));
            // logger.info("Successfully initialized Firebase and FirebaseAuth!");
         } catch (IOException e) {
