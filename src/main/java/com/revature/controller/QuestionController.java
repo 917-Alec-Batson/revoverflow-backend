@@ -1,9 +1,12 @@
 package com.revature.controller;
 
+import java.io.Console;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +23,6 @@ import com.revature.services.QuestionService;
 
 @RestController
 @RequestMapping("/questions")
-
 public class QuestionController {
 	
 	@Autowired
@@ -30,7 +32,7 @@ public class QuestionController {
 	 * get all the questions*/
 	@GetMapping
 	@PreAuthorize("hasAuthority('user')")
-	public Page<Question> getAllQuestions(Pageable pageable)
+	public Page<Question> getAllQuestions(@AuthenticationPrincipal String user, Pageable pageable)
 	{
 		return questionService.getAllQuestions(pageable);
 	}
@@ -42,7 +44,7 @@ public class QuestionController {
 	/**@author ken*/
 	@GetMapping("/status/{status}")
 	@PreAuthorize("hasAuthority('admin')")
-	public Page<Question> getAllQuestionsByStatus(Pageable pageable, @PathVariable boolean status)
+	public Page<Question> getAllQuestionsByStatus(@AuthenticationPrincipal String user,Pageable pageable, @PathVariable boolean status)
 	{
 		return questionService.getAllQuestionsByStatus(pageable, status);
 	}
@@ -55,16 +57,53 @@ public class QuestionController {
 	 */
 	@GetMapping("/user/{id}")
 	@PreAuthorize("hasAuthority('user')")
-	public Page<Question> getAllQuestionsByUserId(Pageable pageable, @PathVariable int id)
+	public Page<Question> getAllQuestionsByUserId(@AuthenticationPrincipal String user, Pageable pageable, @PathVariable int id)
 	{
 		return questionService.getAllQuestionsByUserId(pageable, id);
+	}
+	
+	/**@author Hammad
+	 * @return This method retrieves all the location based question.*/
+	@GetMapping("/location")
+	@PreAuthorize("hasAuthority('user')")
+	public Page<Question> getAllLocationQuestions(Pageable pageable)
+	{
+		return questionService.getAllLocationQuestions(pageable);
+	}
+	
+	/**@author Hammad
+	 * @return This method retrieves all the questions based on the specific location they are related to.*/
+	@GetMapping("/location/{id}")
+	@PreAuthorize("hasAuthority('user')")
+	public Page<Question> getAllQuestionsByLocationID(Pageable pageable, @PathVariable int id)
+	{
+		return questionService.getAllQuestionsByLocationID(pageable, id);
+	}
+	
+	/**@author Hammad
+	 * @return This method retrieves all the questions based on the specific location they are related to
+	 * and whether or not they are company based.*/
+	@GetMapping("/location/{id}/{isRevature}")
+	@PreAuthorize("hasAuthority('user')")
+	public Page<Question> getAllQuestionsByRevatureBasedAndLocationID(Pageable pageable, @PathVariable boolean isRevature, @PathVariable int id)
+	{
+		return questionService.getAllQuestionsByRevatureStatusAndLocationID(pageable, isRevature, id);
+	}
+	
+	/**@author Hammad
+	 * @return This method retrieves all the revature and location based questions.*/
+	@GetMapping("/location/revature")
+	@PreAuthorize("hasAuthority('user')")
+	public Page<Question> getAllRevatureAndLocationBasedQuestions(Pageable pageable)
+	{
+		return questionService.getAllRevatureAndLocationBasedQuestions(pageable);
 	}
 
 	/** @Author James Walls */
 	/** Adds new questions and updates existing ones. */
 	@PostMapping
 	@PreAuthorize("hasAuthority('user')")
-	public Question saveQuestion(@RequestBody Question question) {
+	public Question saveQuestion(@AuthenticationPrincipal String user, @RequestBody Question question) {
 		return questionService.save(question);
 	}
 
@@ -75,7 +114,7 @@ public class QuestionController {
 	 */
 	@PutMapping
 	@PreAuthorize("hasAuthority('user')")
-	public Question updateQuestionAcceptedAnswerId(@RequestBody Question question) {
+	public Question updateQuestionAcceptedAnswerId(@AuthenticationPrincipal String user, @RequestBody Question question) {
 		return questionService.updateQuestionAcceptedAnswerId(question);
 	}
 
@@ -86,7 +125,7 @@ public class QuestionController {
 	 */
 	@PutMapping("/status")
 	@PreAuthorize("hasAuthority('admin')")
-	public Question updateStatus(@RequestBody Question question) {
+	public Question updateStatus(@AuthenticationPrincipal String user, @RequestBody Question question) {
 		return questionService.updateQuestionStatus(question, 20);
 	}
 	
@@ -94,8 +133,17 @@ public class QuestionController {
 	 * @return the is the GetQuestionById end-point. It retrieves a question by it's ID*/
 	@GetMapping("/id/{id}")
 	@PreAuthorize("hasAuthority('user')")
-	public Question getQuestionById(@PathVariable int id) {
+	public Question getQuestionById(@AuthenticationPrincipal String user, @PathVariable int id) {
 		return questionService.findById(id);
+	}
+	
+	//author: Tristan
+	@GetMapping("/revature/{revature}")
+	@PreAuthorize("hasAuthority('user')")
+	public Page<Question> getQuestionsBasedOnRevature(Pageable pageable, @PathVariable boolean revature)
+	{
+		
+		return questionService.getQuestionsBasedOnRevature(pageable, revature);
 	}
 	
 		

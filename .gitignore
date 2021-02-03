@@ -3,5 +3,8 @@
 /target
 /RemoteSystemsTempFiles
 /bin
+
+src/main/resources/915-alec-batson.json
 **915-alec-batson.json
+**/915-alec-batson.json
 **creds.json

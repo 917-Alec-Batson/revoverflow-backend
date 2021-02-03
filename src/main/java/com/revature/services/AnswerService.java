@@ -39,13 +39,13 @@ public class AnswerService {
 	 public Page<Answer> getAnswers(Pageable pageable) {
 		 return answerRepository.findAll(pageable);
 	 }
-	
+
 	/** @author Natasha Poser 
 	 * @return retrieves the accepted answers accosiated with a specific Question Id*/ 
 	public Page<Answer> getAcceptedAnswerByQuestionId(Pageable pageable, int acceptedId){
 		return answerRepository.getAcceptedAnswerByQuestionId(pageable, acceptedId);
 	}
-	
+
 	/** @author Natasha Poser 
 	 * @return retrieves a specific Answer by using it's ID*/
 	public Answer getAnswerById(int id) {

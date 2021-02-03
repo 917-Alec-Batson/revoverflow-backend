@@ -1,0 +1,70 @@
+pipeline{
+    agent{
+        label "master"
+    }
+    stages{
+        stage("Prepare Environment"){
+            steps{
+                sh "mvn clean"
+            }
+        }
+        stage("Test Code"){
+            steps{
+                echo "mvn test" 
+            }
+        }
+        stage("SonarCloud Report"){
+            steps{
+                echo "TODO"
+            }
+        }
+        stage("Build Code"){
+            steps{
+                sh "mvn -Dmaven.test.skip=true package"
+            }
+        }
+        stage("Build Docker Image"){
+            when{
+                branch "master"
+            }
+            steps{
+                sh "docker image build -t rev-overflow-backend:canada-latest ."
+            }
+        }
+        stage("Kill Old Container"){
+            when{
+                branch "master"
+            }
+            steps{
+                script{
+                    try{
+                        sh"docker stop \$(docker ps -a -q --filter \"name=rev-overflow-backend\")"
+                        sh"docker rm \$(docker ps -a -q --filter \"name=rev-overflow-backend\")"
+                    } 
+                    catch(e){
+                    
+                    } 
+                } 
+            }
+        }
+        stage("Run New Container"){
+            when{
+                branch "master"
+            }
+            steps{
+                sh "docker container run -p 10000:8080 -d --name=rev-overflow-backend rev-overflow-backend:canada-latest"
+            }
+        }
+    }
+    post{
+        always{
+           echo "this happens"
+        }
+        success{
+            echo "SUCCESS"
+        }
+        failure{
+            echo "FAILURE"
+        }
+    }
+}

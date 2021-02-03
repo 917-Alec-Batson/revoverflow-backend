@@ -81,7 +81,7 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.9.2</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -91,7 +91,7 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-				<dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
@@ -109,12 +109,12 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-test</artifactId>
-		    <version>4.2.2.RELEASE</version>
-		    <scope>test</scope>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<version>4.2.2.RELEASE</version>
+			<scope>test</scope>
 		</dependency>
-		
+
 		<!-- JWT Support -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
@@ -135,9 +135,14 @@
 			<version>0.10.6</version>
 			<scope>runtime</scope>
 		</dependency>
-		
-		
-	    <dependency>
+
+		<dependency>
+			<groupId>com.google.firebase</groupId>
+			<artifactId>firebase-admin</artifactId>
+			<version>7.0.0</version>
+		</dependency>
+
+		<dependency>
       		<groupId>com.google.guava</groupId>
       		<artifactId>guava</artifactId>
       		<version>20.0</version>
@@ -148,6 +153,11 @@
         		</exclusion>
       		</exclusions>
       	</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 
 	<!-- Package as an executable jar -->
@@ -185,31 +195,31 @@
 				</executions>
 			</plugin>
 			<plugin>
-  				<groupId>com.spotify</groupId>
-  				<artifactId>dockerfile-maven-plugin</artifactId>
-  				<version>1.4.13</version>
-  				<executions>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.13</version>
+				<executions>
 					<execution>
-      					<id>default</id>
-      					<goals>
-        					<!-- Build Goals - Currently only build to local docker repository,
+						<id>default</id>
+						<goals>
+							<!-- Build Goals - Currently only build to local docker repository, 
 								could add push to also push to a remote docker repository -->
 							<goal>build</goal>
-      					</goals>
-    				</execution>
-  				</executions>
-  				<configuration>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
 					<repository>revature/revoverflow-backend</repository>
 					<tag>${project.version}</tag>
 					<buildArgs>
 						<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
 					</buildArgs>
-  				</configuration>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 	<!-- Add Spring repositories -->
-	<!-- (you don't need this if you are using a .RELEASE version)  -->
+	<!-- (you don't need this if you are using a .RELEASE version) -->
 	<repositories>
 		<repository>
 			<id>spring-snapshots</id>

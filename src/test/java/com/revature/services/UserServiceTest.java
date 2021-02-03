@@ -40,7 +40,7 @@ public class UserServiceTest {
 	}
 	
 	@Test
-	public void test_granted_authorities_for_admin_will_return_adminAndUserRoles() {
+	public void grantedAuthoritiesForAdminShouldReturnCorrectRoles() {
 		Collection<GrantedAuthority> adminRoles = new ArrayList<GrantedAuthority>();
 		SimpleGrantedAuthority a= null; 
 		a = new SimpleGrantedAuthority("admin");
@@ -54,7 +54,7 @@ public class UserServiceTest {
 	}
 	
 	@Test
-	public void test_granted_authorities_user_will_return_just_userRole() {
+	public void grantedAuthoritiesUserWillReturnOnlyUserRole() {
 		Collection<GrantedAuthority> userRoles = new ArrayList<GrantedAuthority>();
 		SimpleGrantedAuthority b= null; 
 		b = new SimpleGrantedAuthority("user");

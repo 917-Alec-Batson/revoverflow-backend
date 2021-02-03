@@ -52,7 +52,7 @@ public class RssServiceTest {
 	
 
 	@Test
-	public void add_points_success() {
+	public void addPointsSuccess() {
 		int points = 20;
 		
 		RSSAccountDTO dto = new RSSAccountDTO(u1.getUserID(),points);
@@ -76,7 +76,7 @@ public class RssServiceTest {
 	}
 	
 	@Test
-	public void add_points_null() {
+	public void addPointsNull() {
 		int points = 20;
 		
 		RSSAccountDTO dto = new RSSAccountDTO(u1.getUserID(),points);

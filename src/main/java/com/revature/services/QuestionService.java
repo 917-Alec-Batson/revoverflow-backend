@@ -124,4 +124,34 @@ public class QuestionService {
 		return questionRepository.getQuestionsByStatus(pageable, status);
 	}
 	
+	/**@author Hammad
+	 * @return This method retrieves all the questions based on the specific location they are related to.*/
+	public Page<Question> getAllQuestionsByLocationID(Pageable pageable, int locationID){
+		return questionRepository.findByLocationID(pageable, locationID);
+	}
+	
+	/**@author Hammad
+	 * @return This method retrieves all the questions based on the specific location they are related to
+	 * and whether or not they are company based.*/
+	public Page<Question> getAllQuestionsByRevatureStatusAndLocationID(Pageable pageable, boolean isRevature, int locationID){
+		return questionRepository.findByRevatureQuestionAndLocationID(pageable, isRevature, locationID);
+	}
+	
+	/**@author Hammad
+	 * @return This method retrieves all the revature and location based questions*/
+	public Page<Question> getAllRevatureAndLocationBasedQuestions(Pageable pageable){
+		return questionRepository.findByRevatureAndLocation(pageable);
+	}
+	
+	//author Tristan
+	public Page<Question> getQuestionsBasedOnRevature(Pageable pageable, boolean revature){
+		return questionRepository.getQuestionsBasedOnRevature(pageable, revature);
+	}
+	
+	/**@author Hammad
+	 * @return This method retrieves all the location based question.*/
+	public Page<Question> getAllLocationQuestions(Pageable pageable){
+		return questionRepository.findByLocation(pageable);
+	}
+	
 }
